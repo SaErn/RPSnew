@@ -28,31 +28,13 @@ public class gameStart {
 		//Inväntar att programmet ska avslutas/köras färdigt
 		while (programRunning) {
 			waiting = true;
-			System.out.println("Welcome to " + gameStart.rock + ", " + gameStart.paper + ", " + gameStart.scissor
-					+ " Battle Royale\n" + "Input 1 to start game with 2 Human player\n"
-					+ "Input 2 to play against AI\n" + "Input 3 to change names");
+			System.out.print("Welcome to " + gameStart.rock + ", " + gameStart.paper + ", " + gameStart.scissor
+					+ " Battle Royale\n" + "\nInput 1 to start game with 2 Human player\n"
+					+ "Input 2 to play against AI\n" + "Input 3 to change names\nEnter number of your choice: ");
 			
 			choiceMenu = playerInput(input);
 
-//			//Loop som inväntar svar i första menyn
-//			while (waiting) {
-//				
-//				//Fångar upp felaktigt inmatad input. Om formateringsfel upptäcks ombes användaren göra nytt försök
-//				try { 
-//					//Försöker omvandla input till int
-//					choiceMenu = Integer.parseInt(input.nextLine()); 
-//					
-//					//Om input korrekt och matchar ett av valbara alternativ bryts loopen
-//					if (choiceMenu >= 1 && choiceMenu <= 3) {
-//						waiting = false; 
-//					} else {
-//						System.out.println("Your input must be a number between 1-3");
-//					}
-//				
-//				} catch (NumberFormatException e) {
-//					System.out.println("Your input must be a number between 1-3");
-//				}
-//			}
+
 
 			//Val 1 i menyn -- Två mänskliga spelare
 			if (choiceMenu == 1) { 
@@ -75,7 +57,7 @@ public class gameStart {
 							scorePrinter();
 						//Om spelarnas poäng lika körs en ny omgång och meddelande skrivs ut
 						} else if (gameStart.scoreOne == gameStart.scoreTwo) {
-							System.out.println("Tie Score! Sudden death round");
+							System.out.println("\nTie Score! SUDDEN DEATH ROUND");
 						}
 					}
 				}
@@ -97,7 +79,7 @@ public class gameStart {
 							gameOn = false;
 							scorePrinter();
 						} else if (gameStart.scoreOne == gameStart.scoreTwo) {
-							System.out.println("Tie Score! Sudden death round");
+							System.out.println("\nTie Score! SUDDEN DEATH ROUND");
 						}
 					}
 				}
@@ -117,9 +99,9 @@ public class gameStart {
 		
 		//Om spelare ett har mer poäng än spelare två
 		if (gameStart.scoreOne > gameStart.scoreTwo) { 
-			System.out.println("Player 1 is the Winner!");
+			System.out.println("\nPlayer 1 is the Winner!");
 		} else {
-			System.out.println("Player 2 is the Winner!");
+			System.out.println("\nPlayer 2 is the Winner!");
 		}
 
 	}
@@ -131,11 +113,13 @@ public class gameStart {
 		int playerTwo;
 
 		//Skriver ut alternativen i spelet med default- eller ändrade namn
-		System.out.println("Game Start\n 1 = " + gameStart.rock + "\n 2 = " + gameStart.paper + "\n 3 = "
-				+ gameStart.scissor + "\nEnter number of your choice ");
+		System.out.println("\n 1 = " + gameStart.rock + "\n 2 = " + gameStart.paper + "\n 3 = "
+				+ gameStart.scissor);
 		
+		System.out.print("\nEnter choice for player 1: ");
 		//Kör metoder som tar emot int-värde från spelarna och lagrar i respektive variabel
 		playerOne = playerInput(input);
+		System.out.print("\nEnter choice for player 2: ");
 		playerTwo = playerInput(input);
 		
 		//Metod som testar vem som vann omgången. Skickar spelarnas valda alternativ som argument
@@ -146,9 +130,10 @@ public class gameStart {
 	public static void gamePlayerAi(Scanner input, Random generator) {
 		int playerOne;
 
-		System.out.println("Game Start\n 1 = " + gameStart.rock + "\n 2 = " + gameStart.paper + "\n 3 = "
-				+ gameStart.scissor + "\nEnter number of your choice ");
+		System.out.println("\n 1 = " + gameStart.rock + "\n 2 = " + gameStart.paper + "\n 3 = "
+				+ gameStart.scissor);
 		
+		System.out.print("\nEnter choice for player 1: ");
 		playerOne = playerInput(input);
 		
 		//Testar vem som vann omgång men här är ett av argumenten det returnerade värdet från metod som tar fram slumpad int 1-3
@@ -161,81 +146,88 @@ public class gameStart {
 		int playerInput = 0; 
 		boolean chosing = true;
 
-		//Körs tills val inmatat korrekt
+		//Loop som inväntar svar från spelare
 		while (chosing) { 
+			//Fångar upp felaktigt inmatad input. Om formateringsfel upptäcks ombes användaren göra nytt försök
 			try {
+				//Försöker omvandla input till int
 				playerInput = Integer.parseInt(input.nextLine());
+				//Om input korrekt och matchar ett av valbara alternativ bryts loopen
 				if (playerInput >= 1 && playerInput <= 3) {
 					chosing = false;
 				} else {
-					System.out.println("Your input must be a number between 1-3");
+					System.out.println("\nYour input must be a number between 1-3");
 				}
 
 			} catch (NumberFormatException e) {
-				System.out.println("Your input must be a number between 1-3");
+				System.out.println("\nYour input must be a number between 1-3");
 			}
 		}
 		return playerInput;
 	}
 
+	//Tar fram en slumpad int mellan 1-3, med hjälp av objekt ur random-klassen. Används för AI-spelare val
 	public static int randomNumber(Random generator) {
 		int aiChoice;
+		//Anropar nextInt-metoden och adderar slumpad int med 1 så värdena blir 1,2,3 istället för 0,1,2. 
 		aiChoice = generator.nextInt(3) + 1;
 		return aiChoice;
 	}
 
+	//För ändring av namn på valbara alternativ i spelet
 	public static void ruleSettings(Scanner input) {
 
-		System.out.println("Enter new name for ROCK: ");
+		//Ändrar värdet/namn på dem globala variabler som representerar dem olika alternativen
+		System.out.println("\nEnter new name for ROCK: ");
 		gameStart.rock = input.nextLine();
 
-		System.out.println("Enter new name for PAPER: ");
+		System.out.println("\nEnter new name for PAPER: ");
 		gameStart.paper = input.nextLine();
 
-		System.out.println("Enter new name for SCISSOR: ");
+		System.out.println("\nEnter new name for SCISSOR: ");
 		gameStart.scissor = input.nextLine();
 	}
 
+	//Testar vilken av spelarna som vann aktuell omgång och skriver ut en vinnare eller om det blev lika
 	public static void answerCheck(int playerOneAns, int playerTwoAns) {
-
-		System.out.println(playerOneAns + " " + playerTwoAns);
-
+		//Testar vilken kombination av svar som mottagits från spelarna
 		if (playerOneAns == 1 && playerTwoAns == 1) { // Rock vs Rock
 			System.out.println(
-					"Player 1 chose: " + gameStart.rock + "\nPlayer 2 chose: " + gameStart.rock + "\nIt's a draw!");
+					"\nPlayer 1 chose: " + gameStart.rock + "\nPlayer 2 chose: " + gameStart.rock + "\n\nIT'S A DRAW!");
 
 		} else if (playerOneAns == 1 && playerTwoAns == 2) { // Rock vs Paper
 			System.out.println(
-					"Player 1 chose: " + gameStart.rock + "\nPlayer 2 chose: " + gameStart.paper + "\nPlayer 2 wins!");
+					"\nPlayer 1 chose: " + gameStart.rock + "\nPlayer 2 chose: " + gameStart.paper + "\n\nPLAYER 2 WINS!");
+			//Om det fanns en vinnare av en omgång så adderas 1 till värdet av global variabel som räknar vinnande spelarens poäng
 			gameStart.scoreTwo += 1;
 
 		} else if (playerOneAns == 1 && playerTwoAns == 3) { // Rock vs Scissor
-			System.out.println("Player 1 chose: " + gameStart.rock + "\nPlayer 2 chose: " + gameStart.scissor
-					+ "\nPlayer 1 wins!");
+			System.out.println("\nPlayer 1 chose: " + gameStart.rock + "\nPlayer 2 chose: " + gameStart.scissor
+					+ "\n\nPLAYER 1 WINS!");
 			gameStart.scoreOne += 1;
 		} else if (playerOneAns == 2 && playerTwoAns == 1) { // Paper vs Rock
 			System.out.println(
-					"Player 1 chose: " + gameStart.paper + "\nPlayer 2 chose: " + gameStart.rock + "\nPlayer 1 wins!");
+					"\nPlayer 1 chose: " + gameStart.paper + "\nPlayer 2 chose: " + gameStart.rock + "\n\nPLAYER 1 WINS!");
 			gameStart.scoreOne += 1;
 		} else if (playerOneAns == 2 && playerTwoAns == 2) { // Paper vs Paper
 			System.out.println(
-					"Player 1 chose: " + gameStart.paper + "\nPlayer 2 chose: " + gameStart.paper + "\nIt's a draw!");
+					"\nPlayer 1 chose: " + gameStart.paper + "\nPlayer 2 chose: " + gameStart.paper + "\n\nIT'S A DRAW!");
 
 		} else if (playerOneAns == 2 && playerTwoAns == 3) { // Paper vs Scissor
-			System.out.println("Player 1 chose: " + gameStart.paper + "\nPlayer 2 chose: " + gameStart.scissor
-					+ "\nPlayer 2 wins!");
+			System.out.println("\nPlayer 1 chose: " + gameStart.paper + "\nPlayer 2 chose: " + gameStart.scissor
+					+ "\n\nPLAYER 2 WINS!");
 			gameStart.scoreTwo += 1;
 		} else if (playerOneAns == 3 && playerTwoAns == 1) { // Scissor vs Rock
-			System.out.println("Player 1 chose: " + gameStart.scissor + "\nPlayer 2 chose: " + gameStart.rock
-					+ "\nPlayer 2 wins!");
+			System.out.println("\nPlayer 1 chose: " + gameStart.scissor + "\nPlayer 2 chose: " + gameStart.rock
+					+ "\n\nPLAYER 2 WINS!");
 			gameStart.scoreTwo += 1;
 		} else if (playerOneAns == 3 && playerTwoAns == 2) { // Scissor vs Paper
-			System.out.println("Player 1 chose: " + gameStart.scissor + "\nPlayer 2 chose: " + gameStart.paper
-					+ "\nPlayer 1 wins!");
+			System.out.println("\nPlayer 1 chose: " + gameStart.scissor + "\nPlayer 2 chose: " + gameStart.paper
+					+ "\n\nPLAYER 1 WINS!");
 			gameStart.scoreOne += 1;
 		} else if (playerOneAns == 3 && playerTwoAns == 3) { // Scissor vs Scissor
-			System.out.println("Player 1 chose: " + gameStart.scissor + "\nPlayer 2 chose: " + gameStart.scissor
-					+ "\nIt's a Draw!");
+			System.out.println("\nPlayer 1 chose: " + gameStart.scissor + "\nPlayer 2 chose: " + gameStart.scissor
+					+ "\n\nIT'S A DRAW!");
 		}
 
 	}
