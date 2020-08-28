@@ -32,9 +32,8 @@ public class gameStart {
 					+ " Battle Royale\n" + "\nInput 1 to start game with 2 Human player\n"
 					+ "Input 2 to play against AI\n" + "Input 3 to change names\nEnter number of your choice: ");
 			
+			//Kör metod som tar emot input från spelare och lagrar i int som används för if-sats
 			choiceMenu = playerInput(input);
-
-
 
 			//Val 1 i menyn -- Två mänskliga spelare
 			if (choiceMenu == 1) { 
